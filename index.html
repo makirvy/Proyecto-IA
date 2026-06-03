@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Iguana Resort - Sistema de Gestión</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- LOGIN -->
+
+    <section id="loginSection" class="login-container">
+
+        <div class="login-card">
+
+            <div class="login-header">
+                <h1>🏝️ La Iguana Resort</h1>
+                <p>Sistema de Gestión Empresarial</p>
+            </div>
+
+            <form id="loginForm">
+
+                <input
+                    type="email"
+                    id="email"
+                    placeholder="Correo Electrónico"
+                    required>
+
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Contraseña"
+                    required>
+
+                <button type="submit">
+                    Ingresar al Sistema
+                </button>
+
+            </form>
+
+            <p id="loginMessage"></p>
+
+        </div>
+
+    </section>
+
+    <!-- APLICACIÓN -->
+
+    <div id="appSection" class="app-container hidden">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+
+                <h2>🏝️ La Iguana</h2>
+                <span>Resort</span>
+
+            </div>
+
+            <nav>
+
+               <button onclick="showSection('dashboard')">
+    <i class="fas fa-house"></i>
+    Inicio
+</button>
+
+                <button onclick="showSection('visitantes')">
+                    <i class="fas fa-users"></i>
+                    Visitantes
+                </button>
+
+                <button onclick="showSection('inventario')">
+                    <i class="fas fa-boxes-stacked"></i>
+                    Inventario
+                </button>
+
+                <button onclick="showSection('tareas')">
+                    <i class="fas fa-list-check"></i>
+                    Tareas
+                </button>
+
+                <button onclick="showSection('incidencias')">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    Incidencias
+                </button>
+
+                <button onclick="logout()">
+                    <i class="fas fa-right-from-bracket"></i>
+                    Cerrar Sesión
+                </button>
+
+            </nav>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+
+        <main class="content">
+
+            <!-- HEADER -->
+
+            <header class="topbar">
+
+                <div>
+                    <h1>Sistema de Gestión</h1>
+                    <p>Administración Integral de La Iguana Resort</p>
+                </div>
+
+                <div class="user-info">
+
+                    <span id="currentUser">
+                        Administrador
+                    </span>
+
+                </div>
+
+            </header>
+
+            <!-- DASHBOARD -->
+
+            <section id="dashboard" class="section">
+
+                <h2>Dashboard</h2>
+
+                <div class="dashboard-grid">
+
+                    <div class="stat-card">
+                        <h3>Visitantes</h3>
+                        <p id="totalVisitantes">0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Inventario</h3>
+                        <p id="totalInventario">0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Tareas</h3>
+                        <p id="totalTareas">0</p>
+                    </div>
+
+                    <div class="stat-card">
+                        <h3>Incidencias</h3>
+                        <p id="totalIncidencias">0</p>
+                    </div>
+
+                </div>
+
+                <div class="activity-card">
+
+                    <h3>Actividad Reciente</h3>
+
+                    <ul id="actividadReciente">
+
+                        <li>Sistema iniciado correctamente.</li>
+
+                    </ul>
+
+                </div>
+
+            </section>
+
+            <!-- VISITANTES -->
+
+            <section id="visitantes" class="section hidden">
+
+                <h2>Registro de Visitantes</h2>
+
+                <form id="visitanteForm" class="module-form">
+
+                    <input
+                        type="text"
+                        id="nombreVisitante"
+                        placeholder="Nombre del Cliente"
+                        required>
+
+                    <input
+                        type="number"
+                        id="cantidadPersonas"
+                        placeholder="Cantidad de Personas"
+                        required>
+
+                    <select id="tipoVisita">
+
+                        <option value="Pasadía">
+                            Pasadía
+                        </option>
+
+                        <option value="Hospedaje">
+                            Hospedaje
+                        </option>
+
+                    </select>
+
+                    <button type="submit">
+                        Registrar Visitante
+                    </button>
+
+                </form>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Cliente</th>
+                            <th>Personas</th>
+                            <th>Tipo</th>
+                            <th>Total</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="visitantesTable"></tbody>
+
+                </table>
+
+            </section>
+
+            <!-- INVENTARIO -->
+
+            <section id="inventario" class="section hidden">
+
+                <h2>Inventario</h2>
+
+                <form id="inventarioForm" class="module-form">
+
+                    <input
+                        type="text"
+                        id="producto"
+                        placeholder="Producto"
+                        required>
+
+                    <input
+                        type="text"
+                        id="categoria"
+                        placeholder="Categoría"
+                        required>
+
+                    <input
+                        type="number"
+                        id="stock"
+                        placeholder="Cantidad"
+                        required>
+
+                    <button type="submit">
+                        Agregar Producto
+                    </button>
+
+                </form>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Producto</th>
+                            <th>Categoría</th>
+                            <th>Stock</th>
+                            <th>Acciones</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="inventarioTable"></tbody>
+
+                </table>
+
+            </section>
+
+            <!-- TAREAS -->
+
+            <section id="tareas" class="section hidden">
+
+                <h2>Gestión de Tareas</h2>
+
+                <form id="tareaForm" class="module-form">
+
+                    <input
+                        type="text"
+                        id="tituloTarea"
+                        placeholder="Título de la Tarea"
+                        required>
+
+                    <input
+                        type="text"
+                        id="responsable"
+                        placeholder="Responsable"
+                        required>
+
+                    <select id="estadoTarea">
+
+                        <option>Pendiente</option>
+                        <option>En Proceso</option>
+                        <option>Completada</option>
+
+                    </select>
+
+                    <button type="submit">
+                        Crear Tarea
+                    </button>
+
+                </form>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Tarea</th>
+                            <th>Responsable</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tareasTable"></tbody>
+
+                </table>
+
+            </section>
+
+            <!-- INCIDENCIAS -->
+
+            <section id="incidencias" class="section hidden">
+
+                <h2>Reporte de Incidencias</h2>
+
+                <form id="incidenciaForm" class="module-form">
+
+                    <input
+                        type="text"
+                        id="descripcionIncidencia"
+                        placeholder="Descripción"
+                        required>
+
+                    <input
+                        type="text"
+                        id="ubicacionIncidencia"
+                        placeholder="Ubicación"
+                        required>
+
+                    <select id="prioridad">
+
+                        <option>Baja</option>
+                        <option>Media</option>
+                        <option>Alta</option>
+                        <option>Crítica</option>
+
+                    </select>
+
+                    <button type="submit">
+                        Registrar Incidencia
+                    </button>
+
+                </form>
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Descripción</th>
+                            <th>Ubicación</th>
+                            <th>Prioridad</th>
+                            <th>Acciones</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="incidenciasTable"></tbody>
+
+                </table>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
